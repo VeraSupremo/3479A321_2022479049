@@ -1,10 +1,9 @@
-# flutter_application_1
-
-A new Flutter project.
+# Laboratorio 3 Disp. Moviles
+de: Martin Vera  
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+Este proyecto sera el laboratorio 3 de dispositivos moviles.
 
 A few resources to get you started if this is your first Flutter project:
 
