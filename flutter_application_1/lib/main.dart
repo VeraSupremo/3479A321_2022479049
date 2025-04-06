@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 
+
 void main() {
   runApp(const MyApp());
 }
 
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Clicker 3000',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -28,34 +31,50 @@ class MyApp extends StatelessWidget {
         //
         // This works for code too, not just values: Most code changes can be
         // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.lime),
+        useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Pagina super mega clicker 3000 demo '),
     );
   }
 }
 
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
+
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
   // how it looks.
+
 
   // This class is the configuration for the state. It holds the values (in this
   // case the title) provided by the parent (in this case the App widget) and
   // used by the build method of the State. Fields in a Widget subclass are
   // always marked "final".
 
+
   final String title;
+
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
+
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-
+  void _decrementCounter(){
+    setState(() {
+      _counter --;
+    });
+  }
+  void _resetCounter(){
+    setState(() {
+      _counter = 0;
+    });
+  }
   void _incrementCounter() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
@@ -66,6 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
       _counter++;
     });
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -85,6 +105,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
+      persistentFooterButtons: botoncitosPersistentes,
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
@@ -104,7 +125,9 @@ class _MyHomePageState extends State<MyHomePage> {
           // wireframe for each widget.
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text('You have pushed the button this many times:'),
+            const Text(
+              'Presiona el boton artas veces:',
+            ),
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
@@ -112,11 +135,20 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
+      /*floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+        tooltip: 'Aumento',
+        child: const Icon(Icons.add_road_outlined),
+      ), */ // This trailing comma makes auto-formatting nicer for build methods.
     );
+  }
+
+
+  List<Widget> get botoncitosPersistentes {
+    return [
+      TextButton(onPressed: _decrementCounter, child: Icon(Icons.exposure_minus_1)) //en onpresed poner la funcion del botn y en child el icono
+      , TextButton(onPressed: _resetCounter, child: Icon(Icons.restart_alt)),
+      TextButton(onPressed: _incrementCounter, child: Icon(Icons.exposure_plus_1))
+    ];
   }
 }
