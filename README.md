@@ -1,7 +1,7 @@
-#Laboratorio 3 Dispositivos Moviles
+# Laboratorio 3 Dispositivos Moviles
 
-###integrante: Martin Vera
-###profesor: Manuel moscoso
+### integrante: Martin Vera
+### profesor: Manuel moscoso
 
 
 resumen laboratorio: se busca familiarizarse con flutter y la utilizacion 
