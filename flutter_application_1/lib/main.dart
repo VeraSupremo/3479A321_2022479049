@@ -123,10 +123,11 @@ class _MyHomePageState extends State<MyHomePage> {
           // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
           // action in the IDE, or press "p" in the console), to see the
           // wireframe for each widget.
+
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             SvgPicture.asset(
-              'assets/icons/expresion.svg',
+              'assets/icons/atari.svg',
               semanticsLabel: 'Dart Logo',
             ),
 
