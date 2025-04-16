@@ -2,15 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  MyHomePage({super.key, required this.title}){
+   // print('Hola desde el constructor de MyHomePage');
+  }
 
   final String title;
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
+// crear la clase homestate
 
 class _MyHomePageState extends State<MyHomePage> {
+  @override
+  void initState() { //se crea la funcion que inicializa un widget por 1 vez
+    super.initState();
+    //print('Hola desde el initState de MyHomePage');
+  }
   int _counter = 0;
 
   void _decrementCounter() {

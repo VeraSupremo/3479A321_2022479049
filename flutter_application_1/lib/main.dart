@@ -171,7 +171,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.lime),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Pagina super mega clicker 3000 demo '),
+      home:  MyHomePage(title: 'Pagina super mega clicker 3000 demo '),
     );
   }
 } 
