@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:logging/logging.dart';
 
+final _homePageLogger = Logger('MyHomePage');
 class MyHomePage extends StatefulWidget {
   MyHomePage({super.key, required this.title}){
-   // print('Hola desde el constructor de MyHomePage');
+    _homePageLogger.fine('MyHomePage widget alala');
   }
 
   final String title;
