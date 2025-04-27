@@ -58,6 +58,8 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              const Text('Flutter es genial'),
+              const Text('Dart es genial...(pero no tanto)'),
               SvgPicture.asset(
                 'assets/icons/atari.svg',
                 semanticsLabel: 'Dart Logo',
