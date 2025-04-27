@@ -133,8 +133,13 @@ class ListaContenido extends StatelessWidget {
         title: const Text('Prueba segunda pantalla'),
       ),
       body:Center(
-        child:Card(
-          color:const Color.fromARGB(255, 171, 241, 234),//esto es para el color de la tarjeta
+        child: SizedBox(
+          width: 300,
+          height: 400,
+
+
+      child:Card(
+          color:const Color.fromARGB(255, 44, 109, 53),//esto es para el color de la tarjeta
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(35), // Bordes redondeados
           ),
@@ -149,7 +154,7 @@ class ListaContenido extends StatelessWidget {
                 onPressed:(){
                   // Acción boton 1
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Botón 1 Accionado')),
+                    const SnackBar(content: Text('Misterioso boton')),
                   );
                 },
                 child: const Text('Botón 1'),
@@ -159,7 +164,7 @@ class ListaContenido extends StatelessWidget {
                   // Acción Botón 2
                   Navigator.pop(context); // Regresa a la pantalla anterior
                 },
-                child: const Text('weeeeeeltaaaaaaa'),
+                child: const Text('Volver'),
               ),
               ElevatedButton(onPressed:(){
                     Navigator.push(
@@ -172,6 +177,9 @@ class ListaContenido extends StatelessWidget {
             ],
           ),
         ),
+
+        ),
+        
       ),
     );
   }
@@ -183,7 +191,7 @@ class Sobre extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Sobre nosotros'),
+        title: const Text('Prueba tercera pantalla'),
       ),
       body: Center(
         child: Card(
@@ -212,10 +220,10 @@ class Sobre extends StatelessWidget {
                 onPressed:(){
                   // Acción boton 2
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Botón 1 Accionado')),
+                    const SnackBar(content: Text('Va a Explotar!!!!!!')),
                   );
                 },
-                child: const Text('Botón 1'),
+                child: const Text('No se para que sirve este boton'),
               ),
             ],
           ),
