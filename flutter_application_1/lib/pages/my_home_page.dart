@@ -55,6 +55,9 @@ class _MyHomePageState extends State<MyHomePage> {
           color: Colors.teal,
           elevation: 100 ,
           margin: EdgeInsets.fromLTRB(4 , 58, 4, 58), //esto es para mover lo sbordes de la tarjeta
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(35), // Bordes redondeados
+          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -79,6 +82,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   ElevatedButton(onPressed: _incrementCounter, child:const Icon(Icons.exposure_plus_1)),
                 ],
               ),
+              ElevatedButton(onPressed:(){
+                    Navigator.push(
+                      context, 
+                        MaterialPageRoute(builder: (context) => const ListaContenido())
+                        );
+                  },
+                  child: const Text('Llendo a otra pagina'),
+                  ),
               Text( _counter > 0 ? 'Numeros positivitos' : 'Numeros negativitos',
                     style: TextStyle(
                       color: _counter > 0 ? Colors.green : Colors.yellowAccent,
@@ -108,5 +119,108 @@ class _MyHomePageState extends State<MyHomePage> {
         child: const Icon(Icons.exposure_plus_1),
       ),
     ];
+  }
+}
+
+//Aqui agregar la clase listaContenido extend statelesswidget
+class ListaContenido extends StatelessWidget {
+  const ListaContenido({super.key});
+
+  @override
+  Widget build(BuildContext context){
+    return Scaffold(
+      appBar:AppBar(
+        title: const Text('Prueba segunda pantalla'),
+      ),
+      body:Center(
+        child:Card(
+          color:const Color.fromARGB(255, 171, 241, 234),//esto es para el color de la tarjeta
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(35), // Bordes redondeados
+          ),
+          elevation: 100,
+          margin:const EdgeInsets.fromLTRB(2, 58, 2, 58), //esto es para mover los bordes de la tarjeta
+          child:Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              const Text('Contenido de la lista'),
+              const SizedBox(height: 20), // Espacio entre widgets
+              ElevatedButton(
+                onPressed:(){
+                  // Acción boton 1
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Botón 1 Accionado')),
+                  );
+                },
+                child: const Text('Botón 1'),
+              ),
+              ElevatedButton(
+                onPressed:(){
+                  // Acción Botón 2
+                  Navigator.pop(context); // Regresa a la pantalla anterior
+                },
+                child: const Text('weeeeeeltaaaaaaa'),
+              ),
+              ElevatedButton(onPressed:(){
+                    Navigator.push(
+                      context, 
+                        MaterialPageRoute(builder: (context) => const Sobre())
+                        );
+                  },
+                  child: const Text('Pagina 3'),
+                ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+class Sobre extends StatelessWidget {
+  const Sobre({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Sobre nosotros'),
+      ),
+      body: Center(
+        child: Card(
+          color: const Color.fromARGB(255, 146, 255, 119), //esto es para el color de la tarjeta
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(225), // Bordes redondeados
+          ),
+          elevation: 100,
+          margin: const EdgeInsets.fromLTRB(4, 58, 4, 58), //esto es para mover los bordes de la tarjeta
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              const Text('Sobre esto:'),
+              const Text('La Pestaña es un proyecto de prueba para aprender Flutter y Dart.'),
+              const Text('Creado por: [Martin Vera]'),
+              const Text('Si esto no es un proyecto de prueba, entonces no se que es.'),
+              const SizedBox(height: 20), // Espacio entre widgets
+              ElevatedButton(
+                onPressed:(){
+                  // Acción Botón 1
+                  Navigator.pop(context); // Regresa a la pantalla anterior
+                },
+                child: const Text('volvereishon'),
+              ),
+              ElevatedButton(
+                onPressed:(){
+                  // Acción boton 2
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Botón 1 Accionado')),
+                  );
+                },
+                child: const Text('Botón 1'),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
