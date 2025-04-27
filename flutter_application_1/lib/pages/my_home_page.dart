@@ -79,6 +79,13 @@ class _MyHomePageState extends State<MyHomePage> {
                   ElevatedButton(onPressed: _incrementCounter, child:const Icon(Icons.exposure_plus_1)),
                 ],
               ),
+              Text( _counter > 0 ? 'Numeros positivitos' : 'Numeros negativitos',
+                    style: TextStyle(
+                      color: _counter > 0 ? Colors.green : Colors.yellowAccent,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+           ),
             ],
           ),
         ),
