@@ -48,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      persistentFooterButtons: botoncitosPersistentes,
+      //persistentFooterButtons: botoncitosPersistentes, //esto es para que los botones esten siempre visibles, colocar un boton de menu o algo asi
       body: Center(
         //agregar aqui abajo el card
         child: Card(
@@ -72,7 +72,9 @@ class _MyHomePageState extends State<MyHomePage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround, //el spacearoun va ordenando los botonsitos
                 children:<Widget>[
-                  ElevatedButton(onPressed: _incrementCounter, child:const Icon(Icons.exposure_plus_1))
+                  ElevatedButton(onPressed: _decrementCounter, child:const Icon(Icons.exposure_minus_1)),
+                  ElevatedButton(onPressed: _resetCounter, child:const Icon(Icons.restart_alt)),
+                  ElevatedButton(onPressed: _incrementCounter, child:const Icon(Icons.exposure_plus_1)),
                 ],
               ),
             ],
