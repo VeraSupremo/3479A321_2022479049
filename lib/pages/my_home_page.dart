@@ -106,7 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const ListaContenido(),
+                      builder: (context) => ListaContenido(),
                     ),
                   );
                 },
@@ -147,9 +147,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
 //Aqui agregar la clase listaContenido extend statelesswidget
 class ListaContenido extends StatelessWidget {
-  const ListaContenido({super.key});
+   ListaContenido({super.key});
 
-  /*final List<String> items = [
+  final List<String> items = [
     'Elemento 1',
     'Elemento 2',
     'Elemento 3',
@@ -160,7 +160,7 @@ class ListaContenido extends StatelessWidget {
     'Elemento 8',
     'Elemento 9',
     'Elemento 10',
-  ];*/
+  ];
 
   @override
   Widget build(BuildContext context) {
