@@ -1,16 +1,11 @@
-# flutter_application_1
+# Laboratorio 5 
 
-A new Flutter project.
+integrante: Martin Vera.
+Profesor: Manuel Moscoso
 
-## Getting Started
+## Diversificacion de pantallas
 
-This project is a starting point for a Flutter application.
+en este proyecto se busca la familiarizacion con la creacion de 
+multiples ventanas en  flutter, con la finalidad de poder crear una aplicacion mas completa.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
