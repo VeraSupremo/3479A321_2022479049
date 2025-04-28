@@ -3,8 +3,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:logging/logging.dart';
 
 final _homePageLogger = Logger('MyHomePage');
+
 class MyHomePage extends StatefulWidget {
-  MyHomePage({super.key, required this.title}){
+  MyHomePage({super.key, required this.title}) {
     _homePageLogger.fine('MyHomePage widget alala');
   }
 
@@ -17,10 +18,12 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   @override
-  void initState() { //se crea la funcion que inicializa un widget por 1 vez
+  void initState() {
+    //se crea la funcion que inicializa un widget por 1 vez
     super.initState();
     //print('Hola desde el initState de MyHomePage');
   }
+
   int _counter = 0;
 
   void _decrementCounter() {
@@ -53,8 +56,13 @@ class _MyHomePageState extends State<MyHomePage> {
         //agregar aqui abajo el card
         child: Card(
           color: Colors.teal,
-          elevation: 100 ,
-          margin: EdgeInsets.fromLTRB(4 , 58, 4, 58), //esto es para mover lo sbordes de la tarjeta
+          elevation: 100,
+          margin: EdgeInsets.fromLTRB(
+            4,
+            58,
+            4,
+            58,
+          ), //esto es para mover lo sbordes de la tarjeta
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(35), // Bordes redondeados
           ),
@@ -75,28 +83,43 @@ class _MyHomePageState extends State<MyHomePage> {
               //aqui el row pone los botones en horizontal y no en vertical
               //se puede poner row
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround, //el spacearoun va ordenando los botonsitos
-                children:<Widget>[
-                  ElevatedButton(onPressed: _decrementCounter, child:const Icon(Icons.exposure_minus_1)),
-                  ElevatedButton(onPressed: _resetCounter, child:const Icon(Icons.restart_alt)),
-                  ElevatedButton(onPressed: _incrementCounter, child:const Icon(Icons.exposure_plus_1)),
+                mainAxisAlignment:
+                    MainAxisAlignment
+                        .spaceAround, //el spacearoun va ordenando los botonsitos
+                children: <Widget>[
+                  ElevatedButton(
+                    onPressed: _decrementCounter,
+                    child: const Icon(Icons.exposure_minus_1),
+                  ),
+                  ElevatedButton(
+                    onPressed: _resetCounter,
+                    child: const Icon(Icons.restart_alt),
+                  ),
+                  ElevatedButton(
+                    onPressed: _incrementCounter,
+                    child: const Icon(Icons.exposure_plus_1),
+                  ),
                 ],
               ),
-              ElevatedButton(onPressed:(){
-                    Navigator.push(
-                      context, 
-                        MaterialPageRoute(builder: (context) => const ListaContenido())
-                        );
-                  },
-                  child: const Text('Llendo a otra pagina'),
-                  ),
-              Text( _counter > 0 ? 'Numeros positivitos' : 'Numeros negativitos',
-                    style: TextStyle(
-                      color: _counter > 0 ? Colors.green : Colors.yellowAccent,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ListaContenido(),
                     ),
-           ),
+                  );
+                },
+                child: const Text('Llendo a otra pagina'),
+              ),
+              Text(
+                _counter > 0 ? 'Numeros positivitos' : 'Numeros negativitos',
+                style: TextStyle(
+                  color: _counter > 0 ? Colors.green : Colors.yellowAccent,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ],
           ),
         ),
@@ -126,98 +149,125 @@ class _MyHomePageState extends State<MyHomePage> {
 class ListaContenido extends StatelessWidget {
   const ListaContenido({super.key});
 
+  /*final List<String> items = [
+    'Elemento 1',
+    'Elemento 2',
+    'Elemento 3',
+    'Elemento 4',
+    'Elemento 5',
+    'Elemento 6',
+    'Elemento 7',
+    'Elemento 8',
+    'Elemento 9',
+    'Elemento 10',
+  ];*/
+
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(
-      appBar:AppBar(
-        title: const Text('Prueba segunda pantalla'),
-      ),
-      body:Center(
+      appBar: AppBar(title: const Text('Prueba segunda pantalla')),
+      body: Center(
         child: SizedBox(
           width: 300,
           height: 400,
 
-
-      child:Card(
-          color:const Color.fromARGB(255, 44, 109, 53),//esto es para el color de la tarjeta
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(35), // Bordes redondeados
-          ),
-          elevation: 100,
-          margin:const EdgeInsets.fromLTRB(2, 58, 2, 58), //esto es para mover los bordes de la tarjeta
-          child:Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              const Text('Contenido de la lista'),
-              const SizedBox(height: 20), // Espacio entre widgets
-              ElevatedButton(
-                onPressed:(){
-                  // Acción boton 1
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Misterioso boton')),
-                  );
-                },
-                child: const Text('Botón 1'),
-              ),
-              ElevatedButton(
-                onPressed:(){
-                  // Acción Botón 2
-                  Navigator.pop(context); // Regresa a la pantalla anterior
-                },
-                child: const Text('Volver'),
-              ),
-              ElevatedButton(onPressed:(){
+          child: Card(
+            color: const Color.fromARGB(
+              255,
+              44,
+              109,
+              53,
+            ), //esto es para el color de la tarjeta
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(35), // Bordes redondeados
+            ),
+            elevation: 100,
+            margin: const EdgeInsets.fromLTRB(
+              2,
+              58,
+              2,
+              58,
+            ), //esto es para mover los bordes de la tarjeta
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                const Text('Contenido de la lista'),
+                const SizedBox(height: 20), // Espacio entre widgets
+                ElevatedButton(
+                  onPressed: () {
+                    // Acción boton 1
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Misterioso boton')),
+                    );
+                  },
+                  child: const Text('Botón 1'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    // Acción Botón 2
+                    Navigator.pop(context); // Regresa a la pantalla anterior
+                  },
+                  child: const Text('Volver'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
                     Navigator.push(
-                      context, 
-                        MaterialPageRoute(builder: (context) => const Sobre())
-                        );
+                      context,
+                      MaterialPageRoute(builder: (context) => const Sobre()),
+                    );
                   },
                   child: const Text('Pagina 3'),
                 ),
-            ],
+              ],
+            ),
           ),
         ),
-
-        ),
-        
       ),
     );
   }
 }
+
 class Sobre extends StatelessWidget {
   const Sobre({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Prueba tercera pantalla'),
-      ),
+      appBar: AppBar(title: const Text('Prueba tercera pantalla')),
       body: Center(
         child: Card(
-          color: const Color.fromARGB(255, 146, 255, 119), //esto es para el color de la tarjeta
+          color: const Color.fromARGB(255,146,255,119,), //esto es para el color de la tarjeta
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(225), // Bordes redondeados
+            borderRadius: BorderRadius.circular(35), // Bordes redondeados
           ),
           elevation: 100,
-          margin: const EdgeInsets.fromLTRB(4, 58, 4, 58), //esto es para mover los bordes de la tarjeta
+          margin: const EdgeInsets.fromLTRB(
+            4,
+            58,
+            4,
+            58,
+          ), //esto es para mover los bordes de la tarjeta
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               const Text('Sobre esto:'),
-              const Text('La Pestaña es un proyecto de prueba para aprender Flutter y Dart.'),
+              const Text(
+                'La Pestaña es un proyecto de prueba para aprender Flutter y Dart.',
+              ),
               const Text('Creado por: [Martin Vera]'),
-              const Text('Si esto no es un proyecto de prueba, entonces no se que es.'),
+              const Text(
+                'Si esto no es un proyecto de prueba, entonces no se que es.',
+              ),
               const SizedBox(height: 20), // Espacio entre widgets
               ElevatedButton(
-                onPressed:(){
+                onPressed: () {
                   // Acción Botón 1
                   Navigator.pop(context); // Regresa a la pantalla anterior
                 },
                 child: const Text('volvereishon'),
               ),
               ElevatedButton(
-                onPressed:(){
+                onPressed: () {
                   // Acción boton 2
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Va a Explotar!!!!!!')),
