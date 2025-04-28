@@ -150,16 +150,16 @@ class ListaContenido extends StatelessWidget {
    ListaContenido({super.key});
 
   final List<String> items = [
+    'palabra xd',
+    'palabra 2',
     'Elemento 1',
+    'palabra 3',
+    'palabra 4',
+    'palabra 5',
     'Elemento 2',
     'Elemento 3',
-    'Elemento 4',
-    'Elemento 5',
-    'Elemento 6',
-    'Elemento 7',
-    'Elemento 8',
-    'Elemento 9',
-    'Elemento 10',
+    'palabra 6',
+    'palabra 7',
   ];
 
   @override
