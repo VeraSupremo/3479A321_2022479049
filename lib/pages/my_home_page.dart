@@ -5,9 +5,7 @@ import 'package:logging/logging.dart';
 final _homePageLogger = Logger('MyHomePage');
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({super.key, required this.title}) {
-    _homePageLogger.fine('MyHomePage widget alala');
-  }
+  MyHomePage({super.key, required this.title}); 
 
   final String title;
 
