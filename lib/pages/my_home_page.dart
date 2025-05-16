@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:logging/logging.dart';
 
-final _homePageLogger = Logger('MyHomePage');
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({super.key, required this.title}); 
@@ -10,12 +8,20 @@ class MyHomePage extends StatefulWidget {
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<MyHomePage> createState(){
+    print("STATE");
+    return _MyHomePageState();
+  } 
 }
 // crear la clase homestate
 
 class _MyHomePageState extends State<MyHomePage> {
   @override
+  _MyHomePageState(){
+    //print("Lirililarila");
+    print("$mounted");
+  }
+
   void initState() {
     //se crea la funcion que inicializa un widget por 1 vez
     super.initState();
@@ -44,6 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    print("BuildBuild");
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -55,12 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Card(
           color: Colors.teal,
           elevation: 100,
-          margin: EdgeInsets.fromLTRB(
-            4,
-            58,
-            4,
-            58,
-          ), //esto es para mover lo sbordes de la tarjeta
+          margin: EdgeInsets.fromLTRB(4,58,4,58,), //esto es para mover lo sbordes de la tarjeta
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(35), // Bordes redondeados
           ),
