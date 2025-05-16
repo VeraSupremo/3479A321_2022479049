@@ -1,8 +1,11 @@
-# Laboratorio 4 Dispositivos Moviles
+# Laboratorio 5 
 
-### integrante: Martin Vera
-### profesor: Manuel moscoso
+integrante: Martin Vera.
+Profesor: Manuel Moscoso
+
+## Diversificacion de pantallas
+
+en este proyecto se busca la familiarizacion con la creacion de 
+multiples ventanas en  flutter, con la finalidad de poder crear una aplicacion mas completa.
 
 
-resumen laboratorio: Se busca profundizar mas la codificacion en dart, para ello se 
-realizaron cosas como cambiar iconos, fuentesy separar bloques de codigo en distintos archivos
