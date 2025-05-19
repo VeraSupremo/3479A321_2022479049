@@ -1,13 +1,22 @@
 import 'package:flutter/material.dart';
 //import 'package:flutter_svg/flutter_svg.dart';
 import 'pages/my_home_page.dart';
-//import 'package:logger/logger.dart';
+import 'package:provider/provider.dart';
 import 'package:logging/logging.dart';
+import 'provider/changeNotifier.dart';
+
 
 final _logger = Logger('MyApp');
 void main() {
-  runApp(const MyApp());
+  runApp(
+      ChangeNotifierProvider <AppData> (
+        create: (context) => AppData(),
+        child: const MyApp(),
+        ),
+      );
 }
+
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -25,4 +34,5 @@ class MyApp extends StatelessWidget {
       home: MyHomePage(title: 'Pagina super mega clicker 3000 demo'),
     );
   }
+  
 }

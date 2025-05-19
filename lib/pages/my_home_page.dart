@@ -1,31 +1,63 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/provider/changeNotifier.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
+import 'package:provider/provider.dart';
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({super.key, required this.title}); 
+  const MyHomePage({super.key, required this.title});
 
   final String title;
 
   @override
-  State<MyHomePage> createState(){
+  State<MyHomePage> createState() {
     print("STATE");
     return _MyHomePageState();
-  } 
+  }
 }
 // crear la clase homestate
 
 class _MyHomePageState extends State<MyHomePage> {
   @override
-  _MyHomePageState(){
+  _MyHomePageState() {
     //print("Lirililarila");
     print("$mounted");
   }
 
+  @override
   void initState() {
-    //se crea la funcion que inicializa un widget por 1 vez
-    super.initState();
-    //print('Hola desde el initState de MyHomePage');
+    super.initState(); //se crea la funcion que inicializa un widget por 1 vez
+    print('Widget inicializado');
+    // Aquí puedes inicializar controladores, hacer llamadas API iniciales, etc.
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    print('Dependencias cambiadas');
+    //cambios en dependencias del widget.
+  }
+
+  @override
+  void didUpdateWidget(MyHomePage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    print('Widget actualizado'); //se puede reaccionar a cambios en el widget antes de que se vuelva a construir
+  }
+  
+  @override
+  void deactivate() {//se llama cuando el widget se elimina de la arbol de widgets
+    super.deactivate();
+    print('widget desactivao');
+  }
+@override
+    void dispose() {
+      print('widget eliminao');
+      super.dispose();
+    }
+
+  @override
+  void reassemble() {
+    super.reassemble();
+    print("reensamblando widget");
   }
 
   int _counter = 0;
@@ -62,7 +94,12 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Card(
           color: Colors.teal,
           elevation: 100,
-          margin: EdgeInsets.fromLTRB(4,58,4,58,), //esto es para mover lo sbordes de la tarjeta
+          margin: EdgeInsets.fromLTRB(
+            4,
+            58,
+            4,
+            58,
+          ), //esto es para mover lo sbordes de la tarjeta
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(35), // Bordes redondeados
           ),
@@ -96,6 +133,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: const Icon(Icons.restart_alt),
                   ),
                   ElevatedButton(
+                    //onPressed: context.read<AppData>()._counter,
                     onPressed: _incrementCounter,
                     child: const Icon(Icons.exposure_plus_1),
                   ),
@@ -105,9 +143,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                      builder: (context) => ListaContenido(),
-                    ),
+                    MaterialPageRoute(builder: (context) => ListaContenido()),
                   );
                 },
                 child: const Text('Llendo a otra pagina'),
@@ -147,7 +183,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
 //Aqui agregar la clase listaContenido extend statelesswidget
 class ListaContenido extends StatelessWidget {
-   ListaContenido({super.key});
+  ListaContenido({super.key});
 
   final List<String> items = [
     'palabra xd',
@@ -236,7 +272,12 @@ class Sobre extends StatelessWidget {
       appBar: AppBar(title: const Text('Prueba tercera pantalla')),
       body: Center(
         child: Card(
-          color: const Color.fromARGB(255,146,255,119,), //esto es para el color de la tarjeta
+          color: const Color.fromARGB(
+            255,
+            146,
+            255,
+            119,
+          ), //esto es para el color de la tarjeta
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(35), // Bordes redondeados
           ),
