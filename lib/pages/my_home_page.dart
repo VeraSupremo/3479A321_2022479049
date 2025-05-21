@@ -40,19 +40,23 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void didUpdateWidget(MyHomePage oldWidget) {
     super.didUpdateWidget(oldWidget);
-    print('Widget actualizado'); //se puede reaccionar a cambios en el widget antes de que se vuelva a construir
+    print(
+      'Widget actualizado',
+    ); //se puede reaccionar a cambios en el widget antes de que se vuelva a construir
   }
-  
+
   @override
-  void deactivate() {//se llama cuando el widget se elimina de la arbol de widgets
+  void deactivate() {
+    //se llama cuando el widget se elimina de la arbol de widgets
     super.deactivate();
     print('widget desactivao');
   }
-@override
-    void dispose() {
-      print('widget eliminao');
-      super.dispose();
-    }
+
+  @override
+  void dispose() {
+    print('widget eliminao');
+    super.dispose();
+  }
 
   @override
   void reassemble() {
@@ -125,16 +129,16 @@ class _MyHomePageState extends State<MyHomePage> {
                         .spaceAround, //el spacearoun va ordenando los botonsitos
                 children: <Widget>[
                   ElevatedButton(
-                    onPressed: _decrementCounter,
+                    onPressed: context.read<AppData>().decrementCounter,
                     child: const Icon(Icons.exposure_minus_1),
                   ),
                   ElevatedButton(
-                    onPressed: _resetCounter,
+                    onPressed: context.read<AppData>().resetCounter,
                     child: const Icon(Icons.restart_alt),
                   ),
                   ElevatedButton(
                     //onPressed: context.read<AppData>()._counter,
-                    onPressed: _incrementCounter,
+                    onPressed: context.read<AppData>().incrementCounter,
                     child: const Icon(Icons.exposure_plus_1),
                   ),
                 ],
@@ -149,9 +153,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: const Text('Llendo a otra pagina'),
               ),
               Text(
-                _counter > 0 ? 'Numeros positivitos' : 'Numeros negativitos',
+                context.read<AppData>().counter > 0 ? 'Numeros positivitos' : 'Numeros negativitos',
                 style: TextStyle(
-                  color: _counter > 0 ? Colors.green : Colors.yellowAccent,
+                  color: context.read<AppData>().counter > 0 ? Colors.green : Colors.yellowAccent,
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
@@ -166,15 +170,16 @@ class _MyHomePageState extends State<MyHomePage> {
   List<Widget> get botoncitosPersistentes {
     return [
       TextButton(
-        onPressed: _decrementCounter,
+        onPressed:context.read<AppData>().decrementCounter,
         child: const Icon(Icons.exposure_minus_1),
       ),
       TextButton(
-        onPressed: _resetCounter,
+        onPressed:context.read<AppData>().resetCounter,
         child: const Icon(Icons.restart_alt),
       ),
       TextButton(
-        onPressed: _incrementCounter,
+        onPressed: context.read<AppData>().incrementCounter,
+
         child: const Icon(Icons.exposure_plus_1),
       ),
     ];
