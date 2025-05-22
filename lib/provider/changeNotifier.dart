@@ -4,23 +4,32 @@ import 'package:flutter/material.dart';
 class AppData extends ChangeNotifier {
   int _counter = 0;
   int get counter => _counter;
-  String nombre = 'Userser';
-
+  String nombre = '';
+  bool posiblereset = true;
+  String get nombreUsuario => nombre;
+  bool get posibleresetBool => posiblereset;
+  set nombreUsuario(String nuevoNombre) {// Cambia el nombre del usuario
+    nombre = nuevoNombre;
+    notifyListeners();
+  }
+  set posibleresetBool(bool nuevoValor) {// Cambia el valor de posiblereset
+    posiblereset = nuevoValor;
+    notifyListeners();
+  }
 
   void decrementCounter() {
-    AppData()._counter--;
-    
+    _counter--;
+    notifyListeners();
 
   }
 
   void resetCounter() {
-    AppData()._counter = 0;
-    
-
+    _counter = 0;
+    notifyListeners();
   }
 
   void incrementCounter() {
-    AppData()._counter++;
-    
+    _counter++;
+    notifyListeners();   
   }
 }
