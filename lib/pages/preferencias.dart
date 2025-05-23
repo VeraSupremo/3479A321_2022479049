@@ -18,7 +18,15 @@ class Preferencias extends StatefulWidget {
 class _PrefState extends State<Preferencias>{
   @override
   Widget build(BuildContext context) {
-    throw UnimplementedError();
+    return Scaffold(
+      appBar: AppBar(title: const Text("Preferencias"),),
+       ElevatedButton(
+                onPressed: () {
+                  context.read<AppData>().posibleresetBool =!context.read<AppData>().posibleresetBool;
+                },
+                child: Icon(Icons.build),
+              ),
+    );
   }
 
 }
