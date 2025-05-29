@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/pages/preferencias.dart';
 import 'package:flutter_application_1/provider/changeNotifier.dart';
 import 'package:provider/provider.dart';
 
@@ -11,12 +14,7 @@ class Sobre extends StatelessWidget {
       appBar: AppBar(title: const Text('Detalles')),
       body: Center(
         child: Card(
-          color: const Color.fromARGB(
-            255,
-            146,
-            255,
-            119,
-          ), //esto es para el color de la tarjeta
+          color: const Color.fromARGB(255,146,255,119,), //esto es para el color de la tarjeta
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(35), // Bordes redondeados
           ),
@@ -55,13 +53,22 @@ class Sobre extends StatelessWidget {
                 'Si esto no es un proyecto de prueba, entonces no se que es.',
               ),
               const SizedBox(height: 20), // Espacio entre widgets
-              ElevatedButton(
-                onPressed: () {
-                  context.read<AppData>().posibleresetBool =!context.read<AppData>().posibleresetBool;
-                },
-                child: Icon(Icons.build),
-              ),
-            ],
+              //Preferencias(title: 'Pref',),
+               // Botón para ir a la pantalla de preferencias             
+              // Botón para ir a la pantalla de preferencias
+             ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Preferencias(title: 'Preferencias')),
+                ).then((_) {
+                  // Recargar preferencias al volver (opcional, si es necesario)
+                  //context.read<AppData>().dispose(); // Si existe este método en AppData
+                });
+              },
+              child: const Text('Reinicio'),
+            ),
+          ],
           ),
         ),
       ),
