@@ -88,7 +88,32 @@ class _MyHomePageState extends State<MyHomePage> {
       Navigator.push(context, MaterialPageRoute(builder: (context) => Sobre()));
     }
   }
+  //---------------------------funcion para las imagenes webs ------------------------------------------------
+  final String _urlimage = 'https://picsum.photos/250?image=1';
+  int varefresh = 0;
+  String _obtenerNuevaImagen(){
+   // return 'https://picsum.photos/250?image=${context.watch<AppData>().contimage}';
+    final newImageUrl = 'NUEVA URL CON Contador';
+    try {
+       final response = await http.head(Uri.parse(newImageUrl));
+    if (response.statusCode == 200) {
+       setState(() {
+        _imageUrl = newImageUrl;
+    });
+    } else {
+      setState(() {
+        _imageUrl = ''; // Clear the image URL
+      });
+    }
+    } catch (e) {
+    setState(() {
+    _imageUrl = ''; // Clear the image URL
+    });
+    }
 
+  }
+
+  //----------------------------------------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     print("BuildBuild");
@@ -234,6 +259,16 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              Image(image: NetworkImage(_obtenerNuevaImagen()),
+              errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                return Container(width: 100,height: 100,color: const Color.fromARGB(255, 138, 36, 29),
+                  child: const Center(
+                    child: Text('Error al cargar la imagen'),
+                  ),
+                );
+              },
+            ),
+              const SizedBox(height: 20),
               Text('Oli >.< ${context.watch<AppData>().nombreUsuario}'),
               const Text('Flutter es genial!!!!!!!!...creo'),
               const Text('Dart es genial...(pero no tanto)'),
@@ -308,6 +343,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 );
               },
               child: const Text('Llendo a otra pagina lista'),
+            ),
+            ElevatedButton(
+              onPressed: context.read<AppData>().changeImage,
+              child: const Icon(Icons.image_search, color: Color.fromARGB(225, 48, 52, 255),),
             ),
           ],
         ),
