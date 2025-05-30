@@ -31,10 +31,10 @@ Future<Database> _initDatabase() async{
 //-----------creasion de la tabla de la base de datos-------------
 Future<void> _onCreate(Database db, int version) async {
   await db.execute('''
-  CREATE TABLE [nombre_tabla] (
-  [nombrecolumna] INTEGER PRIMARY KEY,
-  [nombrecolumna] TEXT NOT NULL,
-  [nombrecolumna] TEXT NOT NULL
+  CREATE TABLE [Actividades] (
+  [id] INTEGER PRIMARY KEY,
+  [nombre] TEXT NOT NULL,
+  [fecha] TEXT NOT NULL
   )
   ''');
   }
@@ -43,7 +43,7 @@ Future<void> _onCreate(Database db, int version) async {
 Future<void> insertActivity(Actividad actividad) async {
  final db = await database;
  await db.insert(
- 'activities',
+ 'Actividades',
  actividad.toMap(),
  conflictAlgorithm: ConflictAlgorithm.replace,
  );
