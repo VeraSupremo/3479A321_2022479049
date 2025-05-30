@@ -4,6 +4,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_application_1/pages/list_content.dart';
 import 'package:flutter_application_1/pages/about.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_application_1/pages/preferencias.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -19,6 +21,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   @override
+  bool posibleresetBool = false; //esto es para el boton de resetear el contador, si es par o impar se cambia la cosa de reset
   _MyHomePageState() {
     //print("Lirililarila");
     print("$mounted");
@@ -27,8 +30,18 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState(); //se crea la funcion que inicializa un widget por 1 vez
+    _loadPreferences();
     print('Widget inicializado');
     // Aquí puedes inicializar controladores, hacer llamadas API iniciales, etc.
+  }
+
+  Future<void> _loadPreferences() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      posibleresetBool = prefs.getBool('isResetEnabled') ?? false;
+      print("Cargando preferencias: ");
+      //context.read<AppData>().posibleresetBool = posibleresetBool;
+    });
   }
 
   @override
@@ -41,7 +54,8 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void didUpdateWidget(MyHomePage oldWidget) {
     super.didUpdateWidget(oldWidget);
-    print(      'Widget actualizado',
+    print(
+      'Widget actualizado',
     ); //se puede reaccionar a cambios en el widget antes de que se vuelva a construir
   }
 
@@ -66,31 +80,15 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void paronopar() {
     if (context.read<AppData>().counter % 2 == 0) {
-      Navigator.push(context, MaterialPageRoute(builder:(context) => ListaContenido()));
-    } else{
-      Navigator.push(context, MaterialPageRoute(builder:(context) => Sobre()));
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => ListaContenido()),
+      );
+    } else {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => Sobre()));
     }
   }
 
-  /*int _counter = 0;
-  void _decrementCounter() {
-    setState(() {
-      _counter--;
-    });
-  }
-
-  void _resetCounter() {
-    setState(() {
-      _counter = 0;
-    });
-  }
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-*/
   @override
   Widget build(BuildContext context) {
     print("BuildBuild");
@@ -110,7 +108,12 @@ class _MyHomePageState extends State<MyHomePage> {
           padding: EdgeInsets.zero,
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 0,right: 0,top: 22,bottom: 22,),
+              padding: const EdgeInsets.only(
+                left: 0,
+                right: 0,
+                top: 22,
+                bottom: 22,
+              ),
 
               //padding: const EdgeInsets.all(4.2),
               child: const DrawerHeader(
@@ -134,7 +137,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     CircleAvatar(
                       radius: 50,
                       //backgroundImage: AssetImage('assets/pictures/p1.jpg'),
-                      backgroundImage: NetworkImage('https://www.reforestemos.org/content/uploads/bosque-nativo-araucaria-2.jpg'),
+                      backgroundImage: NetworkImage(
+                        'https://www.reforestemos.org/content/uploads/bosque-nativo-araucaria-2.jpg',
+                      ),
                     ),
                     SizedBox(height: 5), // Espacio entre el avatar y el texto
 
@@ -150,13 +155,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
             ),
-            /*ListTile(
-              title: const Text('Produccion de los fundos'),
-              onTap:(){
-                Navigator.pop(context);
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ProduccionesPage(title: "Produccion de los fundos",),));
-              },
-            ),*/
+            
             ListTile(
               // de aqui en adelante son los elementos del menu lateral
               leading: const Icon(Icons.home_work_outlined),
@@ -175,9 +174,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.pop(context);
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) => const Sobre(),
-                  ),
+                  MaterialPageRoute(builder: (context) => const Sobre()),
                 );
                 // Then close the drawer
                 //Navigator.pop(context);
@@ -192,10 +189,25 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.pop(context);
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) => ListaContenido(),
-                  ),
+                  MaterialPageRoute(builder: (context) => ListaContenido()),
                 );
+                // Then close the drawer
+                //Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.settings),
+              title: const Text('Preferencias'),
+              onTap: () {
+                // Update the state of the app
+                // _onItemTapped(2);//------------------------------------------------------poner navegator push
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Preferencias()),
+                ).then((_) {
+                  _loadPreferences(); // Recargar preferencias al volver
+                });
                 // Then close the drawer
                 //Navigator.pop(context);
               },
@@ -203,10 +215,6 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-
-
-
-
 
       //persistentFooterButtons: botoncitosPersistentes, //esto es para que los botones esten siempre visibles, colocar un boton de menu o algo asi
       body: Center(
@@ -241,17 +249,19 @@ class _MyHomePageState extends State<MyHomePage> {
               //aqui el row pone los botones en horizontal y no en vertical
               //se puede poner row
               Row(
-                mainAxisAlignment:MainAxisAlignment.spaceAround, //el spacearoun va ordenando los botonsitos
+                mainAxisAlignment:
+                    MainAxisAlignment
+                        .spaceAround, //el spacearoun va ordenando los botonsitos
                 children: <Widget>[
                   ElevatedButton(
                     onPressed: context.read<AppData>().decrementCounter,
                     child: const Icon(Icons.exposure_minus_1),
                   ),
-                  if(context.read<AppData>().posibleresetBool )
-                  ElevatedButton(
-                    onPressed: context.read<AppData>().resetCounter,
-                    child: const Icon(Icons.restart_alt),
-                  ),
+                  if (posibleresetBool == true)
+                    ElevatedButton(
+                      onPressed: context.read<AppData>().resetCounter,
+                      child: const Icon(Icons.restart_alt),
+                    ),
                   ElevatedButton(
                     //onPressed: context.read<AppData>()._counter,
                     onPressed: context.read<AppData>().incrementCounter,
@@ -275,7 +285,13 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               const SizedBox(height: 20), // Espacio entre widgets
 
-              ElevatedButton(onPressed: paronopar, child: const Text('Boton misterioso',style: TextStyle(color: Color.fromARGB(255, 96, 27, 224)),)),
+              ElevatedButton(
+                onPressed: paronopar,
+                child: const Text(
+                  'Boton misterioso',
+                  style: TextStyle(color: Color.fromARGB(255, 96, 27, 224)),
+                ),
+              ),
             ],
           ),
         ),

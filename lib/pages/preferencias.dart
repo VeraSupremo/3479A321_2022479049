@@ -6,9 +6,9 @@ import 'package:flutter_application_1/pages/list_content.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Preferencias extends StatefulWidget {
-  const Preferencias({super.key, required this.title});
+  const Preferencias({super.key});
 
-  final String title;
+  //final String title;
 
   @override
   State<Preferencias> createState() {
@@ -29,17 +29,17 @@ class _PrefState extends State<Preferencias> {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
       posibleresetBool = prefs.getBool('isResetEnabled') ?? false;
-      print("Cargando preferencias: $posibleresetBool");
+      print("Cargando preferencias mensajde dede prefenrence.dar: $posibleresetBool");
       // Actualizar el valor en el Provider si es necesario
       context.read<AppData>().posibleresetBool = posibleresetBool;
     });
   }
 
   // Método para guardar preferencias
-  Future<void> _savePreferences(bool value) async {
+  Future<void> _savePreferences() async {
     final prefs = await SharedPreferences.getInstance();
-    print("Guardando preferencias: $value");
-    await prefs.setBool('posibleresetBool', value);
+    print("Guardando preferencias: $posibleresetBool ");
+    await prefs.setBool('isResetEnabled', posibleresetBool);
   }
 
   Widget build(BuildContext context) {
@@ -57,10 +57,9 @@ class _PrefState extends State<Preferencias> {
                 setState(() {
                   posibleresetBool = value;
                   context.read<AppData>().posiblereset = value; // Actualizar el valor en el Provider
-                  _savePreferences(value);
+                  _savePreferences();
                 });
                 print("Switch cambiado: $value");
-                _savePreferences(value); // Guardar el valor en SharedPreferences
               },
             ),
           ],

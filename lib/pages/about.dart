@@ -2,8 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/preferencias.dart';
-import 'package:flutter_application_1/provider/changeNotifier.dart';
-import 'package:provider/provider.dart';
+  import 'package:flutter_application_1/provider/changeNotifier.dart';
+  import 'package:provider/provider.dart';
 
 class Sobre extends StatelessWidget {
   const Sobre({super.key});
@@ -56,18 +56,7 @@ class Sobre extends StatelessWidget {
               //Preferencias(title: 'Pref',),
                // Botón para ir a la pantalla de preferencias             
               // Botón para ir a la pantalla de preferencias
-             ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const Preferencias(title: 'Preferencias')),
-                ).then((_) {
-                  // Recargar preferencias al volver (opcional, si es necesario)
-                  //context.read<AppData>().dispose(); // Si existe este método en AppData
-                });
-              },
-              child: const Text('Reinicio'),
-            ),
+             
           ],
           ),
         ),
