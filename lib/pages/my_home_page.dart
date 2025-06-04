@@ -6,6 +6,7 @@ import 'package:flutter_application_1/pages/list_content.dart';
 import 'package:flutter_application_1/pages/about.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_application_1/pages/preferencias.dart';
+import 'package:http/http.dart' as http;
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -89,7 +90,7 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
   //---------------------------funcion para las imagenes webs ------------------------------------------------
-  final String _urlimage = 'https://picsum.photos/250?image=1';
+  String _urlimage = 'https://picsum.photos/250?image=1';
   int varefresh = 0;
   String _obtenerNuevaImagen(){
    // return 'https://picsum.photos/250?image=${context.watch<AppData>().contimage}';
@@ -98,16 +99,17 @@ class _MyHomePageState extends State<MyHomePage> {
        final response = await http.head(Uri.parse(newImageUrl));
     if (response.statusCode == 200) {
        setState(() {
-        _imageUrl = newImageUrl;
+        _urlimage = newImageUrl;
+        return newImageUrl;
     });
     } else {
       setState(() {
-        _imageUrl = ''; // Clear the image URL
+        _urlimage = ''; // Clear the image URL
       });
     }
     } catch (e) {
     setState(() {
-    _imageUrl = ''; // Clear the image URL
+    _urlimage = ''; // Clear the image URL
     });
     }
 
@@ -263,7 +265,7 @@ class _MyHomePageState extends State<MyHomePage> {
               errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
                 return Container(width: 100,height: 100,color: const Color.fromARGB(255, 138, 36, 29),
                   child: const Center(
-                    child: Text('Error al cargar la imagen'),
+                    child: Text('Error al cargar la imagen', selectionColor: Color.fromARGB(255, 253, 253, 253),),
                   ),
                 );
               },
