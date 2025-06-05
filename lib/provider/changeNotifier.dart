@@ -35,7 +35,8 @@ class AppData extends ChangeNotifier {
     notifyListeners();   
   }
   void changeImage(){
-    _counterimage = _counter;
+    _counterimage = counter;
+    print("Contador de imagen: $_counterimage");
     notifyListeners();
   }
 }
