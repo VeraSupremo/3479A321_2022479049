@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 
 class AppData extends ChangeNotifier {
   int _counter = 0;
+  int _counterimage = 0;
+  int get contimage => _counterimage;
   int get counter => _counter;
   String nombre = '';
   bool posiblereset = true;
@@ -31,5 +33,10 @@ class AppData extends ChangeNotifier {
   void incrementCounter() {
     _counter++;
     notifyListeners();   
+  }
+  void changeImage(){
+    _counterimage = counter;
+    print("Contador de imagen: $_counterimage");
+    notifyListeners();
   }
 }

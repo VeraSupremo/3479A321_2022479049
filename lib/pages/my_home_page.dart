@@ -6,6 +6,7 @@ import 'package:flutter_application_1/pages/list_content.dart';
 import 'package:flutter_application_1/pages/about.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_application_1/pages/preferencias.dart';
+import 'package:http/http.dart' as http;
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -89,6 +90,35 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
+  //---------------------------funcion para las imagenes webs ------------------------------------------------
+  String _urlimage = 'https://picsum.photos/250?image=22';
+  int varefresh = 0;
+  Future<void> _obtenerNuevaImagen() async {
+    // return 'https://picsum.photos/250?image=${context.watch<AppData>().contimage}';
+    final newImageUrl = 'https://picsum.photos/250?image=${context.read<AppData>().counter}';
+    try {
+      final response = await http.get(Uri.parse(newImageUrl));
+      if (response.statusCode == 200) {// Verifica si la imagen existe
+        // Si la imagen existe, actualiza el estado con la nueva URL
+        setState(() {
+          _urlimage = newImageUrl;
+        });
+       // return _urlimage; // Return the new image URL
+      } else {
+        setState(() {
+          _urlimage = ''; // Clear the image URL
+        });
+        //return '';
+      }
+    } catch (e) {
+      setState(() {
+        _urlimage = ''; // Clear the image URL
+      });
+      //return '';
+    }
+  }
+
+  //----------------------------------------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     print("BuildBuild");
@@ -155,7 +185,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
             ),
-            
+
             ListTile(
               // de aqui en adelante son los elementos del menu lateral
               leading: const Icon(Icons.home_work_outlined),
@@ -221,7 +251,7 @@ class _MyHomePageState extends State<MyHomePage> {
         //agregar aqui abajo el card
         child: Card(
           color: Colors.teal,
-          elevation: 100,
+          elevation: 220,
           margin: EdgeInsets.fromLTRB(
             4,
             58,
@@ -234,6 +264,45 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              /*Image(
+                width: 100,
+                height: 100,
+                image: NetworkImage(_urlimage),
+                errorBuilder: (
+                  BuildContext context,
+                  Object exception,
+                  StackTrace? stackTrace,
+                ) {
+                  return Container( // Contenedor para manejar el error de carga de imagen
+                    width: 100,
+                    height: 100,
+                    color: const Color.fromARGB(255, 138, 36, 29),
+                    child: const Center(
+                      child: Text(
+                        'Error al cargar la imagen',
+                        selectionColor: Color.fromARGB(255, 253, 253, 253),
+                      ),
+                    ),
+                  );
+                },
+              ),*/
+              Image.network(
+                _urlimage.isNotEmpty ? _urlimage : '',width: 100,height: 100,fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return Container( // Contenedor para manejar el error de carga de imagen
+                    width: 100,
+                    height: 100,
+                    color: const Color.fromARGB(255, 138, 36, 29),
+                    child: const Center(
+                      child: Text(
+                        'Error al cargar la imagen',
+                        selectionColor: Color.fromARGB(255, 253, 253, 253),
+                      ),
+                    ),
+                  );
+                },
+              ),
+              const SizedBox(height: 20),
               Text('Oli >.< ${context.watch<AppData>().nombreUsuario}'),
               const Text('Flutter es genial!!!!!!!!...creo'),
               const Text('Dart es genial...(pero no tanto)'),
@@ -309,6 +378,23 @@ class _MyHomePageState extends State<MyHomePage> {
               },
               child: const Text('Llendo a otra pagina lista'),
             ),
+            ElevatedButton(
+              //onPressed: context.read<AppData>().changeImage,
+              onPressed: _obtenerNuevaImagen, //onLongPress: '${context.read<AppData>().changeImage()}',
+              
+              child: const Icon(
+                Icons.image_search,
+                color: Color.fromARGB(225, 48, 52, 255),
+              ),
+            ),
+            /*Image.network(
+              _urlimage.isNotEmpty ? _urlimage : '',width: 100,height: 100,
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) {
+                 return Center(child: Text('Failed to load image',style: TextStyle(color: Colors.red),),);
+              },
+            ),*/
+
           ],
         ),
       ],
