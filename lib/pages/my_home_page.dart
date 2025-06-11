@@ -1,3 +1,4 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/provider/changeNotifier.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -6,6 +7,7 @@ import 'package:flutter_application_1/pages/list_content.dart';
 import 'package:flutter_application_1/pages/about.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_application_1/pages/preferencias.dart';
+import 'package:flutter_application_1/pages/pictureScreen.dart';
 import 'package:http/http.dart' as http;
 
 class MyHomePage extends StatefulWidget {
@@ -21,6 +23,8 @@ class MyHomePage extends StatefulWidget {
 // crear la clase homestate
 
 class _MyHomePageState extends State<MyHomePage> {
+  List<CameraDescription> cameras = [];
+  CameraDescription? firstcamera;
   @override
   bool posibleresetBool = false; //esto es para el boton de resetear el contador, si es par o impar se cambia la cosa de reset
   _MyHomePageState() {
@@ -42,6 +46,13 @@ class _MyHomePageState extends State<MyHomePage> {
       posibleresetBool = prefs.getBool('isResetEnabled') ?? false;
       print("Cargando preferencias: ");
       //context.read<AppData>().posibleresetBool = posibleresetBool;
+    });
+  }
+
+  Future<void> _loadCameras() async { //cargar camaras
+    cameras = await availableCameras();
+    setState(() {
+      firstCamera = cameras.first;
     });
   }
 
@@ -95,15 +106,17 @@ class _MyHomePageState extends State<MyHomePage> {
   int varefresh = 0;
   Future<void> _obtenerNuevaImagen() async {
     // return 'https://picsum.photos/250?image=${context.watch<AppData>().contimage}';
-    final newImageUrl = 'https://picsum.photos/250?image=${context.read<AppData>().counter}';
+    final newImageUrl =
+        'https://picsum.photos/250?image=${context.read<AppData>().counter}';
     try {
       final response = await http.get(Uri.parse(newImageUrl));
-      if (response.statusCode == 200) {// Verifica si la imagen existe
+      if (response.statusCode == 200) {
+        // Verifica si la imagen existe
         // Si la imagen existe, actualiza el estado con la nueva URL
         setState(() {
           _urlimage = newImageUrl;
         });
-       // return _urlimage; // Return the new image URL
+        // return _urlimage; // Return the new image URL
       } else {
         setState(() {
           _urlimage = ''; // Clear the image URL
@@ -287,9 +300,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 },
               ),*/
               Image.network(
-                _urlimage.isNotEmpty ? _urlimage : '',width: 100,height: 100,fit: BoxFit.cover,
+                _urlimage.isNotEmpty ? _urlimage : '',
+                width: 100,
+                height: 100,
+                fit: BoxFit.cover,
                 errorBuilder: (context, error, stackTrace) {
-                  return Container( // Contenedor para manejar el error de carga de imagen
+                  return Container(
+                    // Contenedor para manejar el error de carga de imagen
                     width: 100,
                     height: 100,
                     color: const Color.fromARGB(255, 138, 36, 29),
@@ -380,13 +397,15 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             ElevatedButton(
               //onPressed: context.read<AppData>().changeImage,
-              onPressed: _obtenerNuevaImagen, //onLongPress: '${context.read<AppData>().changeImage()}',
-              
+              onPressed:
+                  _obtenerNuevaImagen, //onLongPress: '${context.read<AppData>().changeImage()}',
+
               child: const Icon(
                 Icons.image_search,
                 color: Color.fromARGB(225, 48, 52, 255),
               ),
             ),
+
             /*Image.network(
               _urlimage.isNotEmpty ? _urlimage : '',width: 100,height: 100,
               fit: BoxFit.cover,
@@ -394,7 +413,6 @@ class _MyHomePageState extends State<MyHomePage> {
                  return Center(child: Text('Failed to load image',style: TextStyle(color: Colors.red),),);
               },
             ),*/
-
           ],
         ),
       ],
