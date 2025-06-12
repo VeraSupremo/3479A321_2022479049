@@ -1,5 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/entidades/PreviewPictureScreen.dart';
 import 'package:flutter_application_1/provider/changeNotifier.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -52,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<void> _loadCameras() async { //cargar camaras
     cameras = await availableCameras();
     setState(() {
-      firstCamera = cameras.first;
+      firstcamera = cameras.first;
     });
   }
 
@@ -405,6 +406,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 color: Color.fromARGB(225, 48, 52, 255),
               ),
             ),
+            ElevatedButton(onPressed: (){
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => PreviewPictureScreen(cameras:firstcamera)),
+              );
+            }, child: const Icon(Icons.camera_alt_outlined, color: Color.fromARGB(255, 0, 0, 0),)),
 
             /*Image.network(
               _urlimage.isNotEmpty ? _urlimage : '',width: 100,height: 100,
