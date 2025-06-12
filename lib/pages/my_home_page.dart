@@ -408,7 +408,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             ElevatedButton(onPressed: (){
               Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => PreviewPictureScreen(cameras:firstcamera)),
+                MaterialPageRoute(builder: (context) => CameraPage(cameras :cameras)),
               );
             }, child: const Icon(Icons.camera_alt_outlined, color: Color.fromARGB(255, 0, 0, 0),)),
 
