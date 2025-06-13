@@ -27,24 +27,38 @@ class _CameraPageState extends State<CameraPage> {
     _initCamera();
   }
 
+  
   Future<void> _initCamera() async {
     try {
-      await _controlador.initialize(); // Inicializa el controlador de la cámara
+      // Verifica que haya cámaras disponibles
+      if (widget.cameras.isEmpty) {
+        throw Exception('No cameras available');
+      }
+
+      // Crea el controlador de la cámara
       _controlador = CameraController(
         widget.cameras[0],
-        ResolutionPreset.low,
+        ResolutionPreset.medium, // Cambiado a medium para mejor calidad
         enableAudio: false,
         imageFormatGroup: ImageFormatGroup.jpeg,
-      ); // Selecciona primera cámara disponible y Establece resolución
-      setState(
-        () => _isCameraInitialized = true,
-      ); // Actualiza el estado para indicar que la cámara está inicializada
-      _initializeControllerFuture =
-          _controlador
-              .initialize(); // Asigna la inicialización del controlador a una variable futura
+      );
+
+      // Inicializa el controlador
+      _initializeControllerFuture = _controlador.initialize();
+      await _initializeControllerFuture;
+
+      if (mounted) {
+        setState(() {
+          _isCameraInitialized = true;
+        });
+      }
     } catch (e) {
-      // Manejo de errores al inicializar la cámara
       print("Error al inicializar la cámara: $e");
+      if (mounted) {
+        setState(() {
+          _isCameraInitialized = false;
+        });
+      }
     }
   }
 
@@ -56,36 +70,56 @@ class _CameraPageState extends State<CameraPage> {
 
   // para guardar de forma persistente la imagen capturada
   Future<String> _guardarImagen(XFile image) async {
+    try {
     final directory = await getApplicationDocumentsDirectory();
+    final fileName = '${DateTime.now().millisecondsSinceEpoch}.jpg';
     final filePath = path.join(directory.path, 'captured_image.jpg');
     final file = File(filePath);
     await file.writeAsBytes(await image.readAsBytes());
     return filePath;
+    } catch (e) {
+      print("Error al guardar imagen: $e");
+      rethrow;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    if (!_isCameraInitialized) {
+      return Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const CircularProgressIndicator(),
+              const SizedBox(height: 20),
+              Text('Inicializando cámara...',style: Theme.of(context).textTheme.titleMedium,
+              ),
+            ],
+          ),
+        ),
+      );
+      //return const Center(child: CircularProgressIndicator());
+    }
     return Scaffold(
-      body: CameraPreview(_controlador),
-      floatingActionButton: FloatingActionButton(
-        /* onPressed: () async {
+      backgroundColor: Colors.black,
+      body: //CameraPreview(_controlador),
+      /*floatingActionButton: FloatingActionButton(
+         onPressed: () async {
           final image = await _controlador.takePicture();
           Navigator.pop(context, image.path); // Retorna la ruta de la imagen
         },*/
-        onPressed: () async {
+       /* onPressed: () async {
           XFile? image;
           try {
             await _initializeControllerFuture;
-            final image = await _controlador.takePicture();
+            final image = await _controlador?.takePicture();
           } catch (e) {
             print(e);
           }
           if (image != null) {
             final imagePath = await _guardarImagen(image);
-            Navigator.pop(
-              context,
-              imagePath,
-            ); // Retorna la ruta de la imagen guardada
+            Navigator.pop(context,imagePath,); // Retorna la ruta de la imagen guardada
           }
           //metodo para Previzualizacion de la imagen
           if (!context.mounted) return;
@@ -96,7 +130,68 @@ class _CameraPageState extends State<CameraPage> {
           );
         },
         child: Icon(Icons.camera),
-      ),
+      ),*/
+     Column(
+        children: [
+          Expanded(
+            child: CameraPreview(_controlador),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: IconButton(
+                onPressed: () async {
+                  try {
+                    // Asegúrate de que la cámara esté lista
+                    if (!_isCameraInitialized) return;
+                    
+                    final image = await _controlador.takePicture();
+                    final imagePath = await _guardarImagen(image);
+
+                    if (!mounted) return;
+
+                    await Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => PreviewPictureScreen(imagePath: imagePath),
+                      ),
+                    );
+                  } catch (e) {
+                    print("Error al tomar foto: $e");
+                    if (mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Error al tomar foto: $e')),
+                      );
+                    }
+                  }
+                },
+                icon: const Icon(Icons.camera, size: 50, color: Colors.white),
+              ),
+            ),
+          ),
+        ],
+      )
+      /*floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          try {
+            await _initializeControllerFuture;
+            final image = await _controlador.takePicture();
+            final imagePath = await _guardarImagen(image);
+
+            if (!context.mounted) return;
+
+            await Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => PreviewPictureScreen(imagePath: imagePath),
+              ),
+            );
+          } catch (e) {
+            print("Error al tomar foto: $e");
+          }
+        },
+        child: Icon(Icons.camera),
+      ),*/
+
     );
   }
 }
